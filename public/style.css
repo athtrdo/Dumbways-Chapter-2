@@ -1,0 +1,249 @@
+body{
+    background-color: rgb(224, 221, 217);
+}
+/* <---navigation---> */
+
+.nav-item-active {
+    color: rgb(49, 72, 114) !important;
+    font-weight: bold;
+}
+
+.nav1-item-active {
+    color: rgb(255, 255, 255) !important;
+    font-weight: bold;
+}
+
+.btn-darkblue {
+    background-color: rgb(49, 72, 114);
+}
+
+.navbar {
+    height: 7vh;
+}
+
+/* <----end of navigation----> */
+
+/* <-----card------> */
+.card{
+        margin: auto; 
+        float: none; 
+        margin-bottom: 30px;
+}
+
+.card-b{
+        border-radius:14px;
+        border: solid 1px #00000033;
+        padding:0 ; 
+        box-shadow: 0px 0px 30px #00000040;
+}
+
+.card-body img{
+    border-radius: 9px;
+}
+
+.contact .download {
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+.icon img{
+    margin-top: 10px;
+}
+/* <----end-card------> */
+
+/* <-----Add Project------> */
+
+.form-container {
+    height: 93vh;
+}
+
+.form-container form {
+    width: 460px;
+}
+/* <-----end Add project------> */
+
+/* <-----Add Project------> */
+.form-contact form{
+    width: 460px;
+}
+.form-contact label{
+    font-weight: 500;
+}
+.form-container .input-date {
+    margin-top: 10px;
+    display: flex;
+} 
+.form-container .input-date div {
+    flex: 50%;     
+}
+.form-container .input-date input {
+    width: 95%;
+    height: 35px;
+  }
+/* <-----end Add Project------> */
+
+
+/* <------list Project------> */
+
+.container-1 {
+    background-color: #ffffff;
+    height: 200vh;
+}
+.container-1 .title {
+    padding-top: 20px;
+    font-size: 25px;
+    font-weight: 900;
+}
+h4 {
+    text-align: center;
+}
+.project-list {
+    width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.list-items{
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    margin: 20px;
+    border: solid gray;
+    border-radius: 11px;
+    background-color: rgb(228, 228, 228);
+}
+
+.image img{
+    height: 300px;
+    padding: 7px;
+    border-radius: 11px;
+    border:0 ;
+}
+
+.card-body2 h5 a {
+    text-align: right;
+    text-decoration: none;
+    color: black;
+    text-size-adjust: 12px;
+    margin-left: 10px;
+}
+.icon2{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon2 img {
+    width: 40px;
+    height: 40px;
+}
+
+.button  {
+    margin-top: 5px;
+    display: flex;
+    text-align: center;
+  }
+  .button div{
+    flex: 50%;
+    margin-bottom: 5px;
+  }
+
+  .button .left-button button:hover{
+    background:rgb(38, 75, 90) ;
+  }
+  .button .right-button button:hover{
+    background:rgb(38, 75, 90) ;
+  }
+  .button .left-button button{
+    margin-top: 5px;
+    padding: 5px 20px;
+    font-size: 17px;
+    background: rgb(43, 144, 151);
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 80%;
+  }
+  .button .right-button button{
+    
+    margin-top: 5px;
+    padding: 5px 20px;
+    font-size: 17px;
+    background: rgb(43, 144, 151);
+    border-radius: 20px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 80%;
+  }
+
+  /* <-------detail project-----> */
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    padding: 70px;
+    height: auto;
+    background-color:  rgb(185, 185, 185);
+}
+.page .project-detail {
+    display: flex;
+    margin-top: 40px;
+}
+.img-detail {
+    justify-content: flex-start;
+}
+.detail-info {
+    width: 500px;
+    margin-left: 110px;
+}
+.durasi-info div {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.date-info img {
+    width: 25px;
+    padding-right: 5px;
+}
+.date-info label {
+    padding: 10px;
+}
+.clock {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.clock img {
+    width: 25px;
+    margin-right: 15px;
+}
+.tech-info {
+    display: flex;
+    margin-top: 20px;
+    
+}
+.tech-info .left-info div{
+    display: flex;
+   
+    padding: 5px;
+}
+.left-info img {
+    width: 25px;
+    margin-right: 10px;
+}
+.right-info img {
+    width: 25px;
+    margin-right: 10px;
+}
+.tech-info .right-info div{
+    display: flex;
+    /* align-items: center; */
+    padding: 5px;
+}
+.desc {
+    margin-top: 60px;
+}
+.desc p {
+    text-align: justify;
+}
