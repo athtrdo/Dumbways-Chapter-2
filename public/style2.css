@@ -113,7 +113,7 @@ h4 {
 }
 
 .image img{
-    height: 320px;
+    height: 300px;
     padding: 7px;
     border-radius: 11px;
     border:0 ;
@@ -134,8 +134,6 @@ h4 {
 .card-body2 textarea{
 border: none;
 background-color:rgb(228, 228, 228);
-width: 300px;
-height: 60px;
 }
 
 .icon2{
@@ -156,7 +154,7 @@ height: 60px;
   }
   .button div{
     flex: 50%;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
   .button .left-button button:hover{
@@ -259,34 +257,3 @@ height: 60px;
 .desc p {
     text-align: justify;
 }
-
-
-
-/* <-----Edit Project------> */
-
-.form-contain {
-    height: 93vh;
-}
-
-.form-contain form {
-    width: 460px;
-}
-
-.form-contact form{
-    width: 460px;
-}
-.form-contact label{
-    font-weight: 500;
-}
-.form-contain .input-date1 {
-    margin-top: 10px;
-    display: flex;
-} 
-.form-contain .input-date1 div {
-    flex: 50%;     
-}
-.form-contain .input-date1 input {
-    width: 95%;
-    height: 35px;
-  }
-/* <-----end Add Project------> */
