@@ -1,6 +1,7 @@
-
-
 const express = require('express')
+const { Client } = require('pg')
+
+const db = require('./connection/db')
 const app = express()
 const port = 5000
 const isLogin = true
@@ -11,9 +12,34 @@ app.set('view engine', 'hbs')
 app.use('/public', express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: false}))
 
+// <------------------------------------>
+db.connect ((err,Client,done) =>{
+  if (err){
+    return console.log(err);
+  }
+  console.log("connection db success");
+})
+
+
 app.get('/', (req,res) => {
-    res.render('index',{addProjects});
-});
+  db.connect((error,client, done) => {
+    if (error) throw error
+
+    client.query('SELECT * FROM tb_projects',(error,result) =>{
+      done()
+      if (error) throw error
+
+      const addProjects = result.rows.map(project => ({
+        ...project,
+        Distime: getDistime(project.startDate, project.endDate),
+        isLogin,
+
+      }))
+      res.render('index',{addProjects});
+
+    })
+  }) 
+})
 
 app.get('/contact-me', (req, res) => {
     res.render('contact-me')
@@ -43,10 +69,17 @@ app.get('/Add-Project/add', (req, res) => {
   res.render('Add-Project')
 })
 
-app.get('/delete-project/:idx', (req,res) => {
-  const idx = req.params.idx // idx == index
-  addProjects.splice(idx,1)
-  res.redirect('/')
+app.get('/delete-project/:id', (req,res) => {
+  const {id} = req.params
+  db.connect((error, client, done) => {
+    if(error) throw error
+
+    client.query(`DELETE FROM tb_projects WHERE id =${id}`,(error, result) => {
+      done()
+      if(error) throw error
+      res.redirect('/')
+    })
+  }) 
 })
 
 app.post('/Add-Project/edit/:id', (req,res) => {
@@ -77,13 +110,7 @@ app.get('/DetailProject/:index', (req, res) => {
     const project = addProjects[index]
     const newProject = {
         ...project,
-        name,
-        startDate,
-        endDate,
-        description,
-        Tech,
         isLogin: isLogin}
-    console.log(newProject);
     res.render('DetailProject',{project : newProject})
    
 })
