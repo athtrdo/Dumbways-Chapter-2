@@ -22,7 +22,7 @@
             <a class="nav-link active nav-item-active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active " aria-current="page" href="Add-Project/add">Add Project</a>
+            <a class="nav-link active " aria-current="page" href="Project/add">Add Project</a>
           </li>
         </ul>
         <!-- End Left Side -->
@@ -92,32 +92,32 @@
             <div class="list-items">
                     <div class="item">
                         <div class="image">
-                            <img src="../public/img/IMG-20210910-WA0000.jpg" class="card-img-top" alt="...">
+                            <img src="/public/img/project 2.jpg" class="card-img-top" alt="...">
                         <div class="card-body2">
-                        <h5><a href="/DetailProject/{{@index}}" target="_blank">
+                        <h5><a href="/details-project/{{this.id}}" target="_blank">
                         {{this.name}}
                         </a></h5>
                             <textarea class="card-text" style="text-align: center;">{{this.description}}</textarea>
                             <p style="text-align: Right; margin-right: 10px"> {{this.Distime}}</p>
                         <div class="icon2">
-                            {{#each this.Tech}}
+                          {{#each this.Tech}}
                                 <img
                                     src='/public/img/{{this}}.png'
                                     width='30'
                                     alt=''
                                 />
-                            {{/each}}
+                          {{/each}}
                         </div>
                         {{#if this.isLogin}}
                         <div class="button">
                             <div class="left-button">
-                              <a href="/Add-Project/edit/{{@index}}">
+                              <a href="/Project/edit/{{this.id}}">
                                   <button>Edit</button>
                               </a>
                                 
                             </div>
                             <div class="right-button">
-                              <a href="/delete-project/{{@index}}">
+                              <a href="/delete-project/{{this.id}}">
                               <button>Delete</button>
                               </a>
                                 

@@ -15,7 +15,7 @@
         <div class="container">
             <!-- Left Side -->
             <a class="navbar-brand me -1" href="#">
-                <img src="../public/img/logo.png" alt="">
+                <img src="/public/img/logo.png" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -41,34 +41,35 @@
     </nav>
     <!-- End Navbar -->
 
-    <!-- Blog -->
+    <!-- project -->
+    
     <div class="page">
-        <div class="title">
+        <div class="title" style="text-align: center;">
             <h1>{{project.name}}</h1>
         </div>
         <div class="project-detail">
             <div class="img-detail">
-                <img src="../public/img/IMG-20210910-WA0000.jpg" style="width: 650px;">
+                <img src="/public/img/project 2.jpg" style="width: 500px; height: 400px">
             </div>
             <div class="detail-info">
                 <div class="durasi-info">
-                    <h3>{{project.Distime}}</h3>
+                    <h3>Duration</h3>
                     <div class="date-info" id="date-info">
-                        <img src="../public/img/calender.png">
-                        <label id="start-date">{{project.startDate}}</label>
-                        <label>-</label>
-                        <label id="end-date">{{project.endDate}}</label>
+                        <img src="/public/img/calender.png">
+                        <label id="start-date">{{project.start_date}}</label>
+                        <label>To</label>
+                        <label id="end-date">{{project.end_date}}</label>
                     </div>
                     <div class="clock">
-                        <img src="../public/img/waktu.png">
+                        <img src="/public/img/waktu.png">
                         <label>{{project.Distime}}</label>
                     </div>
-                    <h3>Technologies</h3>
                     <div class='row'>
+                        <h3>Technologies</h3>
                         {{#each project.Tech}}
                         <div class='col-6 col-md-12 col-lg-6 mb-2'>
                         <div class='d-flex align-items-center gap-2'>
-                            <img src='../public/img/{{this}}.png' alt='' />
+                            <img src='/public/img/{{this}}.png' alt='' style="width: 30px;" />
                             <span>{{this}}</span>
                         </div>
                         </div>
@@ -83,7 +84,7 @@
             </p>
         </div>
     </div>
-
+    
 </body>
 
 </html>
