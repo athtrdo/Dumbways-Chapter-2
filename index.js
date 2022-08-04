@@ -18,7 +18,7 @@ app.get('/', (req,res) => {
 app.get('/contact-me', (req, res) => {
     res.render('contact-me')
 })
-app.post('/Add-project/add', (req, res) => {
+app.post('/Project/add', (req, res) => {
     const {name, startDate,endDate,description,Tech} = req.body
     addProjects.push({
         name,
@@ -35,12 +35,12 @@ app.post('/Add-project/add', (req, res) => {
     res.redirect('/')
 })
 
-app.get('/Add-Project/add', (req, res) => {
+app.get('/Project/add', (req, res) => {
    if(!isLogin) {
       res.redirect('/auth')
       return
    }
-  res.render('Add-Project')
+  res.render('Project')
 })
 
 app.get('/delete-project/:idx', (req,res) => {
@@ -49,8 +49,8 @@ app.get('/delete-project/:idx', (req,res) => {
   res.redirect('/')
 })
 
-app.post('/Add-Project/edit/:id', (req,res) => {
-  const {id} = req.params
+app.post('/Project/edit/:id', (req,res) => {
+  const id = req.params.id
   const {name,startDate,endDate,description,Tech}= req.body
 
   addProjects[id] = {
@@ -64,30 +64,19 @@ app.post('/Add-Project/edit/:id', (req,res) => {
   res.redirect('/')
 })
 
-app.get('/Add-Project/edit/:id', (req, res) => {
+app.get('/Project/edit/:id', (req, res) => {
   
-    const { id } = req.params
+    const  id  = req.params.id
     const project = addProjects[id]
     res.render('Edit-project', { project: { ...project, id } })
   
 })
 
-app.get('/DetailProject/:index', (req, res) => {
-    const index = req.params.index
-    const project = addProjects[index]
-    const newProject = {
-        ...project,
-        name,
-        startDate,
-        endDate,
-        description,
-        Tech,
-        isLogin: isLogin}
-    console.log(newProject);
-    res.render('DetailProject',{project : newProject})
-   
+app.get('/details-project/:id', (req, res) => {
+    const { id } = req.params
+    const project = addProjects[id]
+    res.render('details-project', {project: {...project, id}})
 })
-
 
 // Not found route custome
 
