@@ -21,13 +21,34 @@
           <li class="nav-item">
             <a class="nav-link active nav-item-active" aria-current="page" href="/">Home</a>
           </li>
+          {{#if isLogin}}
           <li class="nav-item">
             <a class="nav-link active " aria-current="page" href="Project/add">Add Project</a>
           </li>
+          {{/if}}
         </ul>
         <!-- End Left Side -->
 
         <!-- Right Side -->
+        {{#if isLogin}}
+        <ul class='navbar-nav ms-auto me-4'>
+            <li class='nav-item'>
+              <span class='nav-link active nav-item-active me-1'>Halo, {{user.name}}</span>
+            </li>
+            <li class='nav-item'>
+              <a href='/logout' class='nav-link'>Logout</a>
+            </li>
+          </ul>
+          {{else}}
+          <ul class='navbar-nav ms-auto me-4'>
+            <li class='nav-item'>
+              <a href='/register' class='nav-link'>Register</a>
+            </li>
+            <li class='nav-item'>
+              <a class='nav-link list-active te' href='/login'>Login</a>
+            </li>
+            {{/if}}
+          </ul>
         <a href="Contact-me" class="btn btn-darkblue text-white">Contact Me</a>
         <!-- End Right Side -->
       </div>
@@ -86,7 +107,14 @@
     <!-- End Project -->
     <div class="container-1">
       <h4 class="title">MY PROJECT</h4> 
+      {{#unless addProjects.length}}
+            <div class="text-center mt-5 h1 bg-secondary py-5 rounded text-white">
+              No Data Project
+            </div>
+            {{/unless}}
           <div id="contents" class="project-list">
+
+            
 
             {{#each addProjects}}
             <div class="list-items">

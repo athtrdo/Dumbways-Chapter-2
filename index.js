@@ -1,9 +1,23 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
+const session = require('express-session')
+const flash= require('express-flash')
+
 const db = require('./connection/db')
+
 const app = express()
 const port = 5000
-const isLogin = true
-let addProjects = [] 
+// const isLogin = true
+let addProjects = []
+
+app.use(flash())
+
+app.use(session({
+    secret: 'rahasia',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge: 1000 * 60 * 60}
+}))
 
 // Testing connection database
 db.connect((error,client,done) => {
@@ -38,11 +52,11 @@ app.get('/', (req,res) => {
         const newProject = {
           ...project,
           Distime: getDistime(project.start_date, project.end_date),
-        isLogin: isLogin
+        isLogin: req.session.isLogin
         }
         return newProject
       })
-      res.render('index',{addProjects: newProjects})
+      res.render('index',{user: req.session.user, isLogin: req.session.isLogin, addProjects: newProjects})
 
       })
       done()
@@ -70,12 +84,7 @@ app.post('/Project/add', (req, res) => {
    })
  })
 
-
 app.get('/Project/add', (req, res) => {
-   if(!isLogin) {
-      res.redirect('/auth')
-      return
-   }
   res.render('Project')
 })
 
@@ -173,6 +182,82 @@ app.get('/details-project/:id', (req, res) => {
 
 // Not found route custome
 
+app.get('/register',(req,res) =>{
+  res.render('register')
+})
+
+app.post('/register',(req,res)=>{
+    const { name,email,password} = req.body;
+
+    const hashPassword = bcrypt.hashSync(password, 10)
+
+    db.connect((err,client,done) =>{
+      if (err) throw err
+
+      const query =`INSERT INTO tb_user(name, email, password) 
+                    VALUES ('${name}','${email}','${hashPassword}');`
+      client.query(query, (err)=>{
+        if (err) throw err
+      })
+      done()
+      req.flash('success', `Email: <b>${email}</b> has been registered ✅`)
+      res.redirect('/login')
+    })
+})
+
+app.get('/login', (req, res) => {
+  res.render('login')
+})
+
+app.post('/login', (req,res) =>{
+  const {email, password} = req.body
+
+  if(email == '' || password == '') {
+    req.flash('warning','Please insert all fields')
+    return res.redirect('/login')
+  }
+
+   db.connect((err,client,done)=>{
+    if (err) throw err
+
+    const query =`SELECT * FROM tb_user WHERE email = '${email}'`
+    client.query(query, (err, result) =>{
+      if (err) throw err
+
+      const data = result.rows
+
+
+      // check email
+      if (data.length == 0) {
+        req.flash('error', `Email: <b>${email}</b> not found`)
+        return res.redirect('/login')
+      }
+
+      // check password
+      const isMatch = bcrypt.compareSync(password, data[0].password)
+
+      if (isMatch == false) {
+        req.flash('error', `Password Wrong!`)
+        return res.redirect('/login')
+      }
+
+      // Store data tosession
+      req.session.isLogin = true
+      req.session.user = {
+        id: data[0].id,
+        email: data[0].email,
+        name: data[0].name
+      }
+
+      res.redirect('/')
+    })
+   })
+})
+
+app.get('/logout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/')
+})
 
 app.listen(port, () => {
     console.log(`Personal App running on port: ${port}`);
