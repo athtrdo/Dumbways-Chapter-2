@@ -33,7 +33,7 @@
         {{#if isLogin}}
         <ul class='navbar-nav ms-auto me-4'>
             <li class='nav-item'>
-              <span class='nav-link active nav-item-active me-1'>Halo, {{user.name}}</span>
+              <span class='nav-link active nav-item-active me-1'>Halo, {{user.username}}</span>
             </li>
             <li class='nav-item'>
               <a href='/logout' class='nav-link'>Logout</a>
@@ -120,13 +120,15 @@
             <div class="list-items">
                     <div class="item">
                         <div class="image">
-                            <img src="/public/img/project 2.jpg" class="card-img-top" alt="...">
+                            <img src='{{this.image}}' class="card-img-top" alt="...">
                         <div class="card-body2">
                         <h5><a href="/details-project/{{this.id}}" target="_blank">
                         {{this.name}}
                         </a></h5>
+                            <p style="text-align: left; margin-left: 10px"> {{this.Distime}}</p>
                             <textarea class="card-text" style="text-align: center;">{{this.description}}</textarea>
-                            <p style="text-align: Right; margin-right: 10px"> {{this.Distime}}</p>
+                            
+                            <p style="text-align: right; margin-right:5px">create by {{this.username}}</p>
                         <div class="icon2">
                           {{#each this.Tech}}
                                 <img

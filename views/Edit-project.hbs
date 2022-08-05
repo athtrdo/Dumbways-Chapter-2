@@ -23,7 +23,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active nav-item-active" aria-current="page" href="Project/add">Add Project</a>
+                    <a class="nav-link active nav-item-active" aria-current="page" href="Project/add">Edit Project</a>
                   </li>
                 </ul>
                 <!-- End Left Side -->
@@ -38,7 +38,7 @@
 
         <!-- Form -->
         <div class="form-contain d-flex justify-content-center align-items-center">
-            <form action="/Project/edit/{{Data.id}}" method="post">
+            <form action="/Project/edit/{{Data.id}}" method="post" enctype="multipart/form-data">
                 <h1 class="text-center mb-3">Edit Project</h1>
                 <div class="mb-3">
                     <label for="input-project" class="form-project">Project Name</label>

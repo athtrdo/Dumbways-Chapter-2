@@ -4,10 +4,12 @@ const session = require('express-session')
 const flash= require('express-flash')
 
 const db = require('./connection/db')
+const upload = require('./middlewares/uploadFile')
 
 const app = express()
 const port = 5000
-// const isLogin = true
+const PATH = 'http://localhost:5000/uploads/'
+const isLogin = true
 let addProjects = []
 
 app.use(flash())
@@ -30,19 +32,34 @@ db.connect((error,client,done) => {
 
 app.set('view engine', 'hbs')
 app.use('/public', express.static(__dirname + '/public'))
+app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(express.urlencoded({extended: false}))
 
 
 
 app.get('/', (req,res) => {
+  let query = '';
 
   
   db.connect((err,client, done) => {
-    if (err) throw err
+    if (err) {
+      return console.log(err);
+    }
 
-    const query = `SELECT * FROM tb_projects ORDER BY id ASC`
-
-
+    if (req.session.isLogin == true) {
+      // If Login
+      query = `SELECT tb_projects.*, tb_user.username, tb_user.email 
+                  FROM tb_projects LEFT JOIN tb_user
+                  ON tb_user.id = tb_projects.user_id 
+                  WHERE tb_projects.user_id = ${req.session.user.id}
+                  ORDER BY tb_projects.id DESC;`
+  } else {
+      // If not Login
+      query = `SELECT tb_projects.*, tb_user.username, tb_user.email 
+                  FROM tb_projects LEFT JOIN tb_user
+                  ON tb_user.id = tb_projects.user_id
+                  ORDER BY tb_projects.id DESC`;
+  }
     client.query(query,(err,result) => {
       if (err) throw err
 
@@ -52,10 +69,12 @@ app.get('/', (req,res) => {
         const newProject = {
           ...project,
           Distime: getDistime(project.start_date, project.end_date),
-        isLogin: req.session.isLogin
+          isLogin: req.session.isLogin,
+          image: PATH + project.image
         }
         return newProject
       })
+
       res.render('index',{user: req.session.user, isLogin: req.session.isLogin, addProjects: newProjects})
 
       })
@@ -67,24 +86,39 @@ app.get('/', (req,res) => {
 app.get('/contact-me', (req, res) => {
     res.render('contact-me')
 })
-app.post('/Project/add', (req, res) => {
+app.post('/Project/add',upload.single('image'), (req, res) => {
+
     const {name, startDate,endDate,description,Tech} = req.body
+    const user_id = req.session.user.id
+    const fileName = req.file.filename
+    
+
     db.connect((err,client,done) => {
       if(err) throw err
       
-      const query = `INSERT INTO tb_projects (name,start_date,end_date,description,"Tech")
-      VALUES ('${name}','${startDate}','${endDate}','${description}','{${Tech}}')`;
+      const query = `INSERT INTO tb_projects (name,start_date,end_date,description,"Tech",image,user_id)
+      VALUES ('${name}',
+      '${startDate}',
+      '${endDate}',
+      '${description}',
+      '{${Tech}}',
+      '${fileName}',
+      '${user_id}')`
 
       client.query(query, (err) =>{
         if (err) throw err
         done()
-
-        res.redirect('/')
      })
    })
+   res.redirect('/')
  })
 
 app.get('/Project/add', (req, res) => {
+
+  if (req.session.isLogin != true) {
+    req.flash('warning', `Please login!`)
+    return res.redirect('/login')
+  }
   res.render('Project')
 })
 
@@ -106,10 +140,12 @@ app.get('/delete-project/:id', (req,res) => {
   }) 
 })
 
-app.post('/Project/edit/:id', (req,res) => {
+app.post('/Project/edit/:id',upload.single('image'), (req,res) => {
   
   const {name, startDate,endDate,description,Tech} = req.body
 
+  const fileName = req.file.filename
+  
   const id = req.params.id
 
   db.connect((err,client,done) => {
@@ -120,7 +156,8 @@ app.post('/Project/edit/:id', (req,res) => {
     start_date = '${startDate}',
     end_date ='${endDate}',
     description = '${description}',
-    "Tech" ='{${Tech}}'
+    "Tech" ='{${Tech}}',
+    image = '${fileName}'
     WHERE id = ${id};`
 
     
@@ -156,10 +193,14 @@ app.get("/Project/edit/:id", (req, res) => {
 
 app.get('/details-project/:id', (req, res) => {
   const id = req.params.id;
-  // const { title, start_date, end_date, description, technologies } = req.body;
+ 
   db.connect((err, client, done) => {
-    if (err) console.log(err);
-    const query = `SELECT * FROM tb_projects WHERE id = ${id}`;
+    if (err) throw err
+
+    const query = `SELECT tb_projects.*, tb_user.username, tb_user.email 
+    FROM tb_projects LEFT JOIN tb_user
+    ON tb_user.id = tb_projects.user_id
+    WHERE tb_projects.id = ${id};`
 
     client.query(query, (err, result) => {
       done();
@@ -172,6 +213,7 @@ app.get('/details-project/:id', (req, res) => {
           Distime: getDistime(project.start_date, project.end_date),
           start_date: new Date(project.start_date),
           end_date: new Date(project.end_date),
+          image: PATH + project.image
         }
 
       
@@ -187,15 +229,15 @@ app.get('/register',(req,res) =>{
 })
 
 app.post('/register',(req,res)=>{
-    const { name,email,password} = req.body;
+    const { username ,email,password} = req.body;
 
     const hashPassword = bcrypt.hashSync(password, 10)
 
     db.connect((err,client,done) =>{
       if (err) throw err
 
-      const query =`INSERT INTO tb_user(name, email, password) 
-                    VALUES ('${name}','${email}','${hashPassword}');`
+      const query =`INSERT INTO tb_user(username, email, password) 
+                    VALUES ('${username}','${email}','${hashPassword}');`
       client.query(query, (err)=>{
         if (err) throw err
       })
@@ -246,7 +288,7 @@ app.post('/login', (req,res) =>{
       req.session.user = {
         id: data[0].id,
         email: data[0].email,
-        name: data[0].name
+        username: data[0].username
       }
 
       res.redirect('/')

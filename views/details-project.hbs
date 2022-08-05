@@ -46,7 +46,7 @@
         </div>
         <div class="project-detail">
             <div class="img-detail">
-                <img src="/public/img/project 2.jpg" style="width: 500px; height: 400px">
+                <img src={{project.image}} style="width: 550px; height: 400px">
             </div>
             <div class="detail-info">
                 <div class="durasi-info">
@@ -68,9 +68,13 @@
                         <div class='d-flex align-items-center gap-2'>
                             <img src='/public/img/{{this}}.png' alt='' style="width: 30px;" />
                             <span>{{this}}</span>
+                            
                         </div>
                         </div>
                         {{/each}}
+                        <div>
+                                <h5>Created by {{project.username}}</h5>
+                            </div>
                     </div>
                 </div>
             </div>

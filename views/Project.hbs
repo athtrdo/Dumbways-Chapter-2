@@ -13,7 +13,7 @@
             <div class="container">
                 <!-- Left Side -->
               <a class="navbar-brand me -5" href="#">
-                <img src="./assets/img/logo.png" alt="">
+                <img src="/public/img/logo.png" alt="">
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
 
         <!-- Form -->
         <div class="form-container d-flex justify-content-center align-items-center">
-            <form action="/Project/add" method="post">
+            <form action="/Project/add" method="post" enctype="multipart/form-data">
                 <h1 class="text-center mb-3">Add New Project</h1>
                 <div class="mb-3">
                     <label for="input-project" class="form-project">Project Name</label>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Upload Image</label>
-                    <input class="form-control" type="file" id="imageproject" name="image">
+                    <input class="form-control" type="file" id="imageproject" name='image'>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
                     <button class="btn btn-darkblue text-white" type="submit" onclick="addProject()">Submit</button>
