@@ -9,9 +9,8 @@ const upload = require('./middlewares/uploadFile')
 const app = express()
 const port = 5000
 const PATH = 'http://localhost:5000/uploads/'
-const isLogin = true
-let addProjects = []
-
+const isLogin= true;
+let addProjects = [];
 app.use(flash())
 
 app.use(session({
@@ -34,8 +33,6 @@ app.set('view engine', 'hbs')
 app.use('/public', express.static(__dirname + '/public'))
 app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(express.urlencoded({extended: false}))
-
-
 
 app.get('/', (req,res) => {
   let query = '';

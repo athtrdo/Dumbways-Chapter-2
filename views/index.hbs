@@ -11,7 +11,7 @@
     <div class="container">
         <!-- Left Side -->
       <a class="navbar-brand me -1" href="#">
-        <img src="../public/img/logo.png" alt="">
+        <img src="../public/img/React.png" alt="" width="50px">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -125,11 +125,12 @@
                         <h5><a href="/details-project/{{this.id}}" target="_blank">
                         {{this.name}}
                         </a></h5>
-                            <p style="text-align: left; margin-left: 10px"> {{this.Distime}}</p>
+                            <p style="text-align: left; margin-left: 10px">Duration: {{this.Distime}}</p>
                             <textarea class="card-text" style="text-align: center;">{{this.description}}</textarea>
                             
-                            <p style="text-align: right; margin-right:5px">create by {{this.username}}</p>
+                            <p style="text-align: right; margin-right:5px">Created by {{this.username}}</p>
                         <div class="icon2">
+                          <p>Using Tech: </p>
                           {{#each this.Tech}}
                                 <img
                                     src='/public/img/{{this}}.png'
