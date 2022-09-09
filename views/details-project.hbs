@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{project.name}} | Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/style.css">
+</head>
+
+<body>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+            <!-- Left Side -->
+            <a class="navbar-brand me -1" href="#">
+                <img src="/public/img/React.png" alt="" width="50px">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active nav-item-active" aria-current="page" href="/">Home</a>
+                    </li>
+                </ul>
+                <!-- End Left Side -->
+
+                <!-- Right Side -->
+                <a href="Contact-me" class="btn btn-darkblue text-white">Contact Me</a>
+                <!-- End Right Side -->
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- project -->
+    
+    <div class="page">
+        <div class="title" style="text-align: center;">
+            <h1>{{project.name}}</h1>
+        </div>
+        <div class="project-detail">
+            <div class="img-detail">
+                <img src={{project.image}} style="width: 550px; height: 400px">
+            </div>
+            <div class="detail-info">
+                <div class="durasi-info">
+                    <h3>Duration</h3>
+                    <div class="date-info" id="date-info">
+                        <img src="/public/img/calender.png">
+                        <label id="start-date">{{project.start_date}}</label>
+                        <label>To</label>
+                        <label id="end-date">{{project.end_date}}</label>
+                    </div>
+                    <div class="clock">
+                        <img src="/public/img/waktu.png">
+                        <label>{{project.Distime}}</label>
+                    </div>
+                    <div class='row'>
+                        <h3>Technologies</h3>
+                        {{#each project.Tech}}
+                        <div class='col-6 col-md-12 col-lg-6 mb-2'>
+                        <div class='d-flex align-items-center gap-2'>
+                            <img src='/public/img/{{this}}.png' alt='' style="width: 30px;" />
+                            <span>{{this}}</span>
+                            
+                        </div>
+                        </div>
+                        {{/each}}
+                        <div>
+                                <h5>Created by {{project.username}}</h5>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="desc">
+            <p>
+                {{project.description}}
+            </p>
+        </div>
+    </div>
+    
+</body>
+
+</html>

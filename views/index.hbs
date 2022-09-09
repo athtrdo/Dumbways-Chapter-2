@@ -11,7 +11,7 @@
     <div class="container">
         <!-- Left Side -->
       <a class="navbar-brand me -1" href="#">
-        <img src="../public/img/logo.png" alt="">
+        <img src="../public/img/React.png" alt="" width="50px">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -19,15 +19,36 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active nav-item-active" aria-current="page" href="index">Home</a>
+            <a class="nav-link active nav-item-active" aria-current="page" href="/">Home</a>
           </li>
+          {{#if isLogin}}
           <li class="nav-item">
-            <a class="nav-link active " aria-current="page" href="Add-Project">Add Project</a>
+            <a class="nav-link active " aria-current="page" href="Project/add">Add Project</a>
           </li>
+          {{/if}}
         </ul>
         <!-- End Left Side -->
 
         <!-- Right Side -->
+        {{#if isLogin}}
+        <ul class='navbar-nav ms-auto me-4'>
+            <li class='nav-item'>
+              <span class='nav-link active nav-item-active me-1'>Halo, {{user.username}}</span>
+            </li>
+            <li class='nav-item'>
+              <a href='/logout' class='nav-link'>Logout</a>
+            </li>
+          </ul>
+          {{else}}
+          <ul class='navbar-nav ms-auto me-4'>
+            <li class='nav-item'>
+              <a href='/register' class='nav-link'>Register</a>
+            </li>
+            <li class='nav-item'>
+              <a class='nav-link list-active te' href='/login'>Login</a>
+            </li>
+            {{/if}}
+          </ul>
         <a href="Contact-me" class="btn btn-darkblue text-white">Contact Me</a>
         <!-- End Right Side -->
       </div>
@@ -81,54 +102,73 @@
 
   </div>
     
-    <!-- <---------list--------->
+    
     
     <!-- End Project -->
     <div class="container-1">
       <h4 class="title">MY PROJECT</h4> 
-          <div id="contents" class="project-list"></div>
-
-          <div class="list-items">
-            <div class="item">
-                <div class="image">
-                    <img src="../public/img/project 1.jpeg" class="card-img-top" alt="...">
-                <div class="card-body2">
-                <h5><a href="Detail Project.html">
-                Project Pertama
-                </a></h5>
-                    <p class="card-text" style="text-align: center;">ini adalah project Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro voluptatibus harum iure, 
-                      deserunt nam est? Voluptas atque, optio accusamus non excepturi, nesciunt a iusto autem ratione cumque, dolores corrupti velit?</p>
-                    <p style="text-align: Right; margin-right: 10px">3 Months </p>
-                <div class="icon2">
-                    <i><img src="../public/img/React.png" alt="" ></i>
-                    <i><img src="../public/img/javascript.png" alt="" ></i>
-                    <i><img src="../public/img/TS.png" alt="" ></i>
-                </div>
-                <div class="button">
-                    <div class="left-button">
-                        <button>Edit</button>
-                    </div>
-                    <div class="right-button">
-                        <button>Delete</button>
-                    </div>
-                </div>
-                </div>
-                </div>
+      {{#unless addProjects.length}}
+            <div class="text-center mt-5 h1 bg-secondary py-5 rounded text-white">
+              No Data Project
             </div>
-    </div>
+            {{/unless}}
+          <div id="contents" class="project-list">
 
-  
+            
 
-  
-    
+            {{#each addProjects}}
+            <div class="list-items">
+                    <div class="item">
+                        <div class="image">
+                            <img src='{{this.image}}' class="card-img-top" alt="...">
+                        <div class="card-body2">
+                        <h5><a href="/details-project/{{this.id}}" target="_blank">
+                        {{this.name}}
+                        </a></h5>
+                            <p style="text-align: left; margin-left: 10px">Duration: {{this.Distime}}</p>
+                            <textarea class="card-text" style="text-align: center;">{{this.description}}</textarea>
+                            
+                            <p style="text-align: right; margin-right:5px">Created by {{this.username}}</p>
+                        <div class="icon2">
+                          <p>Using Tech: </p>
+                          {{#each this.Tech}}
+                                <img
+                                    src='/public/img/{{this}}.png'
+                                    width='30'
+                                    alt=''
+                                />
+                          {{/each}}
+                        </div>
+                        {{#if this.isLogin}}
+                        <div class="button">
+                            <div class="left-button">
+                              <a href="/Project/edit/{{this.id}}">
+                                  <button>Edit</button>
+                              </a>
+                                
+                            </div>
+                            <div class="right-button">
+                              <a href="/delete-project/{{this.id}}">
+                              <button>Delete</button>
+                              </a>
+                                
+                            </div>
+                        </div>
+                        {{/if}}
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+          </div>
     
         <!-- dynamic content would be here -->
  
   
-          </div>
-        </div>
+    </div>
+</div>
 
-        <script src="MyProject.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
   
     
 </body>

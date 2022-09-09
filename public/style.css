@@ -113,10 +113,14 @@ h4 {
 }
 
 .image img{
-    height: 300px;
+    height: 320px;
     padding: 7px;
     border-radius: 11px;
     border:0 ;
+}
+
+.card-body2{
+    text-align: center;
 }
 
 .card-body2 h5 a {
@@ -126,6 +130,14 @@ h4 {
     text-size-adjust: 12px;
     margin-left: 10px;
 }
+
+.card-body2 textarea{
+border: none;
+background-color:rgb(228, 228, 228);
+width: 300px;
+height: 60px;
+}
+
 .icon2{
     display:flex;
     justify-content: center;
@@ -144,7 +156,7 @@ h4 {
   }
   .button div{
     flex: 50%;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
 
   .button .left-button button:hover{
@@ -194,7 +206,7 @@ h4 {
     justify-content: flex-start;
 }
 .detail-info {
-    width: 500px;
+    width: 350px;
     margin-left: 110px;
 }
 .durasi-info div {
@@ -247,3 +259,38 @@ h4 {
 .desc p {
     text-align: justify;
 }
+
+
+
+/* <-----Edit Project------> */
+
+.form-contain {
+    height: 93vh;
+}
+
+.form-contain form {
+    width: 460px;
+}
+
+.form-contact form{
+    width: 460px;
+}
+.form-contact label{
+    font-weight: 500;
+}
+.form-contain .input-date1 {
+    margin-top: 10px;
+    display: flex;
+} 
+.form-contain .input-date1 div {
+    flex: 50%;     
+}
+.form-contain .input-date1 input {
+    width: 95%;
+    height: 35px;
+  }
+/* <-----end Add Project------> */
+
+/* .form-login {
+    width: 450px;
+} */
